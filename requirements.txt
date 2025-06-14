@@ -1,0 +1,15 @@
+# LiveKit Core Packages
+livekit>=1.0.9
+livekit-agents>=0.8.0
+
+# Plugin Dependencies
+livekit-plugins-deepgram>=0.6.0
+livekit-plugins-elevenlabs>=0.6.0
+livekit-plugins-openai>=0.7.0
+livekit-plugins-silero>=0.6.0
+
+# Core Dependencies
+python-dotenv>=1.0.0
+
+# Optional: If you want to use noise cancellation
+# livekit-plugins-nvidia>=0.6.0
