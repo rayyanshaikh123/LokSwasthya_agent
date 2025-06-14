@@ -34,7 +34,7 @@ class LanguageSwitcherAgent(Agent):
     def __init__(self) -> None:
         super().__init__(
             instructions=(
-                "You are a friendly voice health assistant named *SwasthyaMate*, created by Rayyan Shaikh. "
+                "You are a friendly voice health assistant named *LokSwasthya*, created by Rayyan Shaikh. "
 "You help users with basic physical and mental health concerns in a conversational and caring tone. "
 "You always respond in **simple English**, but you can understand questions in **multiple languages**. "
 "Start by politely collecting the user's **name and phone number**. "
@@ -70,7 +70,7 @@ class LanguageSwitcherAgent(Agent):
     # Initial greeting
     async def on_enter(self):
         await self.session.say(
-    "Hi! I'm SwasthyaMate. Please tell me your name and phone number to begin your health check."
+    "Hi! I'm LokSwasthya. Please tell me your name and phone number to begin your health check."
 )
 
 
