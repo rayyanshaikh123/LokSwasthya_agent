@@ -54,7 +54,7 @@ class LanguageSwitcherAgent(Agent):
             llm=openai.LLM.with_ollama(
                 model=os.getenv("OLLAMA_MODEL", "health-assistantv3"),
                 base_url=os.getenv("OLLAMA_BASE_URL",
-                                   "https://registered-toe-zip-scenarios.trycloudflare.com"),
+                                   "https://preparing-smell-accounts-postcard.trycloudflare.com"),
             ),
             vad=silero.VAD.load(),
         )
@@ -62,7 +62,7 @@ class LanguageSwitcherAgent(Agent):
         # tiny helper for intent detection (function‑calling not required)
         self.intent_llm = openai.LLM.with_ollama(
     model=os.getenv("OLLAMA_INTENT_MODEL", "llama3.2"),
-    base_url=os.getenv("OLLAMA_BASE_URL", "https://registered-toe-zip-scenarios.trycloudflare.com"),
+    base_url=os.getenv("OLLAMA_BASE_URL", "https://preparing-smell-accounts-postcard.trycloudflare.com"),
 )
 
         self.current_lang = "en"
