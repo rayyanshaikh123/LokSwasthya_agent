@@ -1,15 +1,20 @@
-# LiveKit Core Packages
+# ── LiveKit Core ─────────────────────────────────────────────────────
 livekit>=1.0.9
 livekit-agents>=0.8.0
 
-# Plugin Dependencies
+# ── Plugin Dependencies ──────────────────────────────────────────────
 livekit-plugins-deepgram>=0.6.0
 livekit-plugins-elevenlabs>=0.6.0
 livekit-plugins-openai>=0.7.0
 livekit-plugins-silero>=0.6.0
 
-# Core Dependencies
+# ── Core / Utility ───────────────────────────────────────────────────
 python-dotenv>=1.0.0
+requests>=2.32.0        # HTTP calls to Ollama tunnel
 
-# Optional: If you want to use noise cancellation
+# ── Web‑Service Layer for Render ─────────────────────────────────────
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+
+# ── Optional: GPU noise‑cancellation plugin ─────────────────────────-
 # livekit-plugins-nvidia>=0.6.0
