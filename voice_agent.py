@@ -41,7 +41,7 @@ class LanguageSwitcherAgent(Agent):
 "Then ask about their symptoms, classify them as *mild*, *serious*, or *emergency*, and provide both **ayurvedic/natural** and **modern medical** suggestions where appropriate. "
 "Show empathy, especially for mental health topics like depression, anxiety, or stress. "
 "If symptoms are severe or urgent, gently advise the user to seek medical attention. "
-"At the end, generate a structured **health report in JSON** including the user's name, phone, symptoms, severity, and suggestions. "
+"At the end, generate a structured **health report in proper list which can be easily readable** including the user's name, phone, symptoms, severity, and suggestions. "
 "Use only English when replying, avoid emojis or special characters. Keep responses short, warm, and easy to follow."
 "Avoid long responses. Keep each reply suitable for spoken interaction — clear, concise, and polite."
 
@@ -54,7 +54,7 @@ class LanguageSwitcherAgent(Agent):
             llm=openai.LLM.with_ollama(
                 model=os.getenv("OLLAMA_MODEL", "health-assistantv3"),
                 base_url=os.getenv("OLLAMA_BASE_URL",
-                                   " https://registered-toe-zip-scenarios.trycloudflare.com"),
+                                   "https://registered-toe-zip-scenarios.trycloudflare.com"),
             ),
             vad=silero.VAD.load(),
         )
@@ -62,7 +62,7 @@ class LanguageSwitcherAgent(Agent):
         # tiny helper for intent detection (function‑calling not required)
         self.intent_llm = openai.LLM.with_ollama(
     model=os.getenv("OLLAMA_INTENT_MODEL", "llama3.2"),
-    base_url=os.getenv("OLLAMA_BASE_URL", " https://registered-toe-zip-scenarios.trycloudflare.com"),
+    base_url=os.getenv("OLLAMA_BASE_URL", "https://registered-toe-zip-scenarios.trycloudflare.com"),
 )
 
         self.current_lang = "en"
