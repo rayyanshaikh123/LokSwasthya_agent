@@ -54,7 +54,7 @@ class LanguageSwitcherAgent(Agent):
             llm=openai.LLM.with_ollama(
                 model=os.getenv("OLLAMA_MODEL", "health-assistantv3"),
                 base_url=os.getenv("OLLAMA_BASE_URL",
-                                   "http://localhost:11434/v1"),
+                                   "https://columbus-father-creek-medicaid.trycloudflare.com"),
             ),
             vad=silero.VAD.load(),
         )
@@ -62,7 +62,7 @@ class LanguageSwitcherAgent(Agent):
         # tiny helper for intent detection (function‑calling not required)
         self.intent_llm = openai.LLM.with_ollama(
     model=os.getenv("OLLAMA_INTENT_MODEL", "llama3.2"),
-    base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1"),
+    base_url=os.getenv("OLLAMA_BASE_URL", "https://columbus-father-creek-medicaid.trycloudflare.com"),
 )
 
         self.current_lang = "en"

@@ -43,7 +43,7 @@ class LanguageSwitcherAgent(Agent):
 "If symptoms are severe or urgent, gently advise the user to seek medical attention. "
 "At the end, generate a structured **health report in JSON** including the user's name, phone, symptoms, severity, and suggestions. "
 "Use only English when replying, avoid emojis or special characters. Keep responses short, warm, and easy to follow."
-"Avoid long responses. Keep each reply suitable for spoken interaction — clear, concise, and polite."
+"Avoid long responses. Keep each reply suitable for spoken interaction — clear, concise, and polite. not a big paragraph "
 
             ),
             stt=deepgram.STT(model="nova-3-general", language="multi"),
