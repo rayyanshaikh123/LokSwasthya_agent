@@ -19,13 +19,6 @@ groq_llm = groq.LLM(
 )
 
 # ── language tables ───────────────────────────────────────
-LANGUAGE_NAMES = {"en":"English","es":"Spanish","fr":"French","de":"German","it":"Italian","hi":"Hindi"}
-DEEPGRAM_CODES = {c:c for c in LANGUAGE_NAMES}
-GREETINGS = {
-    "en":"Listening in English now.","es":"¡Escuchando en español!",
-    "fr":"J'écoute maintenant en français.","de":"Ich höre jetzt Deutsch.",
-    "it":"Ora ascolto in italiano.","hi":"अब मैं हिंदी में सुन रहा हूँ।",
-}
 
 # ── Agent ─────────────────────────────────────────────────
 class LanguageSwitcherAgent(Agent):
