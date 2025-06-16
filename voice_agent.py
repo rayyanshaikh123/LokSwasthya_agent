@@ -34,7 +34,7 @@ class LanguageSwitcherAgent(Agent):
             stt=deepgram.STT(model="nova-3-general", language="multi"),
             tts=elevenlabs.TTS(
                 model="eleven_turbo_v2_5",
-                voice_id="cgSgspJ2msm6clMCkdW9",
+                voice_id="EXAVITQu4vr4xnSDxMaL",
             ),
             llm=groq_llm,          # ← single LLM backend
             vad=silero.VAD.load(),
