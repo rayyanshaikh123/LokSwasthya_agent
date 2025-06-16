@@ -34,10 +34,9 @@ class LanguageSwitcherAgent(Agent):
 
             ),
             stt=deepgram.STT(model="nova-3-general", language="multi"),
-            tts=elevenlabs.TTS(
-                model="eleven_turbo_v2_5",
-                voice_id="iP95p4xoKVk53GoZ742B"
-            ),
+            tts=deepgram.TTS(
+      model="aura-arcas-en",
+   ),
             llm=openai.LLM.with_ollama(
                
                  model="health-assistantv3",
