@@ -7,7 +7,7 @@ livekit-plugins-deepgram>=0.6.0
 livekit-plugins-elevenlabs>=0.6.0
 livekit-plugins-openai>=0.7.0
 livekit-plugins-silero>=0.6.0
-
+livekit-agents[groq]~=1.0
 # ── Core / Utility ───────────────────────────────────────────────────
 python-dotenv>=1.0.0
 requests>=2.32.0        # HTTP calls to Ollama tunnel
