@@ -11,19 +11,6 @@ logger = logging.getLogger("stt-intent")
 load_dotenv()  # loads .env from current dir
 
 # ── Language tables ──────────────────────────────────────────────────
-LANGUAGE_NAMES = {
-    "en": "English", "es": "Spanish", "fr": "French",
-    "de": "German", "it": "Italian", "hi": "Hindi",
-}
-DEEPGRAM_CODES = {c: c for c in LANGUAGE_NAMES}  # 1‑to‑1 mapping
-GREETINGS = {
-    "en": "Listening in English now.",
-    "es": "¡Escuchando en español!",
-    "fr": "J'écoute maintenant en français.",
-    "de": "Ich höre jetzt Deutsch.",
-    "it": "Ora ascolto in italiano.",
-    "hi": "अब मैं हिंदी में सुन रहा हूँ।",
-}
 
 # ── Agent class ───────────────────────────────────────────────────────
 class LanguageSwitcherAgent(Agent):
@@ -52,17 +39,17 @@ class LanguageSwitcherAgent(Agent):
                 voice_id="iP95p4xoKVk53GoZ742B"
             ),
             llm=openai.LLM.with_ollama(
-                model=os.getenv("OLLAMA_MODEL", "health-assistantv3"),
-                base_url=os.getenv("OLLAMA_BASE_URL",
-                                   "http://localhost:11434/v1"),
+               
+                 model="health-assistantv3",
+    base_url="http://127.0.0.1:11434/v1",
             ),
             vad=silero.VAD.load(),
         )
 
         # tiny helper for intent detection (function‑calling not required)
         self.intent_llm = openai.LLM.with_ollama(
-    model=os.getenv("OLLAMA_INTENT_MODEL", "llama3.2"),
-    base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1"),
+    model="llama3.2",
+    base_url="http://127.0.0.1:11434/v1",
 )
 
         self.current_lang = "en"
@@ -87,51 +74,7 @@ class LanguageSwitcherAgent(Agent):
         await self.session.generate_reply(text)
 
     # ---------- helper methods ---------------------------------------
-    async def _detect_language_intent(self, text: str) -> str | None:
-        """
-        1. Fast keyword mapping (no LLM cost)
-        2. If nothing matched, ask local Llama via intent_llm.
-        """
-        lowered = text.lower()
 
-        # --- 1️⃣ keyword table (add more as needed) -----------------
-        keyword_map = {
-            "english": "en",
-            "spanish": "es", "español": "es",
-            "french": "fr",  "français": "fr",
-            "german": "de",  "deutsch": "de",
-            "italian": "it", "italiano": "it",
-            "hindi": "hi",   "हिंदी": "hi",
-        }
-        for key, code in keyword_map.items():
-            if key in lowered:
-                logger.info(f"Keyword intent detected: {code}")
-                return code
-
-        # --- 2️⃣ fallback to Llama 3 prompt -------------------------
-        prompt = (
-            "Return ONLY one of these codes: en, es, fr, de, it, hi.\n"
-            f'User: "{text.strip()}"\n'
-            "If they want to switch the listening language, reply with that "
-            "code. Otherwise reply with none."
-        )
-        try:
-            resp = await self.intent_llm.complete(prompt, max_tokens=2)
-            code = resp.strip().lower()
-            if code in LANGUAGE_NAMES:
-                logger.info(f"LLM intent detected language switch to {code}")
-                return code
-        except Exception as e:
-            logger.warning(f"Intent LLM failed: {e}")
-
-        return None
-
-    async def _apply_stt_language(self, code: str):
-        """Flip Deepgram STT and greet."""
-        self.stt.update_options(language=DEEPGRAM_CODES[code])
-        self.current_lang = code
-        await self.session.say(GREETINGS[code])
-        logger.info(f"STT language switched to {code}")
 
 # ── Worker entrypoint ─────────────────────────────────────────────────
 async def entrypoint(ctx: JobContext):
