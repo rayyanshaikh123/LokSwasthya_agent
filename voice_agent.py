@@ -40,7 +40,7 @@ class LanguageSwitcherAgent(Agent):
             llm=openai.LLM.with_ollama(
                
                  model="health-assistantv3",
-    base_url="https://lokswasthya.rayyanshaikh.me",
+    base_url="https://lokswasthya.rayyanshaikh.me/v1",
             ),
             vad=silero.VAD.load(),
         )
@@ -48,7 +48,7 @@ class LanguageSwitcherAgent(Agent):
         # tiny helper for intent detection (function‑calling not required)
         self.intent_llm = openai.LLM.with_ollama(
     model="llama3.2",
-    base_url="https://lokswasthya.rayyanshaikh.me",
+    base_url="https://lokswasthya.rayyanshaikh.me/v1",
 )
 
         self.current_lang = "en"
