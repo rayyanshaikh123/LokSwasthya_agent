@@ -3,7 +3,7 @@ import logging
 from dotenv import load_dotenv
 from livekit.agents import JobContext, WorkerOptions, cli
 from livekit.agents.voice import Agent, AgentSession
-from livekit.plugins import deepgram, elevenlabs, openai, silero
+from livekit.plugins import deepgram, groq, silero
 
 # ── Setup ─────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO)
@@ -35,21 +35,20 @@ class LanguageSwitcherAgent(Agent):
             ),
             stt=deepgram.STT(model="nova-3-general", language="multi"),
             tts=deepgram.TTS(
-      model="aura-arcas-en",
-   ),
-            llm=openai.LLM.with_ollama(
-               
-                 model="health-assistantv3",
-    base_url="https://lokswasthya.rayyanshaikh.me/v1",
+                model="aura-arcas-en",
+            ),
+            llm=groq.LLM(
+                model=os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile"),
+                api_key=os.getenv("GROQ_API_KEY"),
             ),
             vad=silero.VAD.load(),
         )
 
         # tiny helper for intent detection (function‑calling not required)
-        self.intent_llm = openai.LLM.with_ollama(
-    model="llama3.2",
-    base_url="https://lokswasthya.rayyanshaikh.me/v1",
-)
+        self.intent_llm = groq.LLM(
+            model=os.getenv("GROQ_INTENT_MODEL", "llama-3.2-11b-text-preview"),
+            api_key=os.getenv("GROQ_API_KEY"),
+        )
 
         self.current_lang = "en"
 

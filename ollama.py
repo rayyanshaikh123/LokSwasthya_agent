@@ -3,7 +3,7 @@ import logging
 from dotenv import load_dotenv
 from livekit.agents import JobContext, WorkerOptions, cli
 from livekit.agents.voice import Agent, AgentSession
-from livekit.plugins import deepgram, elevenlabs, openai, silero
+from livekit.plugins import deepgram, elevenlabs, groq, silero
 
 # ── Setup ─────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO)
@@ -51,19 +51,18 @@ class LanguageSwitcherAgent(Agent):
                 model="eleven_turbo_v2_5",
                 voice_id="iP95p4xoKVk53GoZ742B"
             ),
-            llm=openai.LLM.with_ollama(
-                model=os.getenv("OLLAMA_MODEL", "health-assistantv3"),
-                base_url=os.getenv("OLLAMA_BASE_URL",
-                                   "https://columbus-father-creek-medicaid.trycloudflare.com"),
+            llm=groq.LLM(
+                model=os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile"),
+                api_key=os.getenv("GROQ_API_KEY"),
             ),
             vad=silero.VAD.load(),
         )
 
         # tiny helper for intent detection (function‑calling not required)
-        self.intent_llm = openai.LLM.with_ollama(
-    model=os.getenv("OLLAMA_INTENT_MODEL", "llama3.2"),
-    base_url=os.getenv("OLLAMA_BASE_URL", "https://columbus-father-creek-medicaid.trycloudflare.com"),
-)
+        self.intent_llm = groq.LLM(
+            model=os.getenv("GROQ_INTENT_MODEL", "llama-3.2-11b-text-preview"),
+            api_key=os.getenv("GROQ_API_KEY"),
+        )
 
         self.current_lang = "en"
 
